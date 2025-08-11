@@ -72,19 +72,22 @@ export default function GlassDropdown({
           ref={contentRef}
           align={align}
           side={side}
-          className={`border-white/10 bg-[#0D1117]/80 backdrop-blur-xl shadow-2xl ring-1 ring-white/5 ${className}`}
+          className={`border-white/10 bg-gradient-to-br from-[#0f172a]/95 to-[#0D1117]/90 backdrop-blur-xl shadow-2xl ring-1 ring-white/10 ${className}`}
           forceMount
           sideOffset={8}
           onEscapeKeyDown={() => onOpenChange?.(false)}
           {...props}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            initial={{ opacity: 0, scale: 0.92, y: -12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            exit={{ opacity: 0, scale: 0.92, y: -12 }}
             transition={{
-              duration: 0.2,
+              duration: 0.25,
               ease: [0.4, 0.0, 0.2, 1],
+              type: "spring",
+              stiffness: 400,
+              damping: 30,
             }}
           >
             {children}

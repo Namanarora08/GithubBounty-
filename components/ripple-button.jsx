@@ -43,17 +43,17 @@ export default function RippleButton({
       {/* Original children passed to RippleButton */}
       {children}
 
-      {/* Enhanced glow effect - make it more subtle */}
+      {/* Enhanced glow effect with improved colors */}
       <motion.div
         className="pointer-events-none absolute inset-0 rounded-md opacity-0"
         whileHover={{
           opacity: 1,
           boxShadow:
             variant === "default"
-              ? "0 4px 20px rgba(31, 111, 235, 0.3), 0 8px 40px rgba(31, 111, 235, 0.15)"
+              ? "0 4px 20px rgba(37, 99, 235, 0.4), 0 8px 40px rgba(37, 99, 235, 0.2)"
               : "0 4px 12px rgba(255, 255, 255, 0.1)",
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       />
 
       {/* Enhanced ripple effects */}
@@ -67,12 +67,13 @@ export default function RippleButton({
               top: ripple.y,
               width: ripple.size,
               height: ripple.size,
-              background:
-                "radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.3) 50%, transparent 100%)",
+              background: variant === "default"
+                ? "radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 50%, transparent 100%)"
+                : "radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.3) 50%, transparent 100%)",
             }}
             initial={{ scale: 0, opacity: 0.8 }}
             animate={{ scale: 1, opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: [0.4, 0.0, 0.2, 1] }}
           />
         ))}
       </div>
@@ -81,16 +82,16 @@ export default function RippleButton({
 
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.03, y: -2 }}
       whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
       className="inline-block"
     >
       <ShadcnButton
         ref={buttonRef}
         {...props} // Pass asChild, href, etc.
         onClick={handleClick}
-        className={`relative overflow-hidden transition-all duration-300 ${className}`}
+        className={`relative overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
         variant={variant}
         size={size}
       >
